@@ -1,2 +1,1 @@
-# Portfolio
-My portfolio and projects are associated with data science.
+This portfolio presents some projects that I have developed in data science. They are written in the R programming language.
