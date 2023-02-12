@@ -8,3 +8,8 @@ Gold is usually quoted by the ounce in U.S. dollars.
 
 ## Source
 Nasdaq - https://www.nasdaq.com/market-activity/commodities/gc:cmx
+
+# Notes:
+
+1. **Target**: The gold price for the next day.
+2. **Forecasting period**: December, 2021.
