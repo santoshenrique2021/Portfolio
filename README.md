@@ -1,10 +1,9 @@
-# Title
-The gold price prediction via random forest regression
+# The gold price prediction via random forest regression
 
-# Aim
+## Aim
 This project presents a random forest regression applied to a time series problem. In special, the model will predict the gold price.
 
-# Data
+## Data
 The daily gold price during the beginning of the COVID pandemic - 2020 and 2021. Along with this period, many events were canceled or postponed the world.
 
 ## Price
