@@ -1,2 +1,5 @@
-It presents some projects that I have developed in machine learning. In broad words, I show the step-by-step of the modeling and detail the main results.
-I hope these projects help you consider ideas and perspectives.
+# Title
+The gold price prediction via random forest regression
+
+# Aim
+This project presents a random forest regression applied to a time series problem. In special, the model will predict the gold price.
