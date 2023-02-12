@@ -13,4 +13,4 @@ Nasdaq - https://www.nasdaq.com/market-activity/commodities/gc:cmx
 
 1. **Approach**: Machine learning;
 2. **Target**: The gold price for the next day;
-3. **Forecasting period**: December, 2021.
+3. **Prediction period**: December, 2021.
