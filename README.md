@@ -1,17 +1,24 @@
 # The gold price prediction via random forest regression
 
-## Aim
-This project presents a random forest regression applied to a time series problem. The model will predict the gold price - a daily time series quoted in Nasdaq during the beginning of the COVID pandemic - 2020 and 2021.
+## Primary objective
+This project presents a random forest regression applied to a time series problem. The model predicts the gold price - a daily time series quoted in Nasdaq - in Decemeber 2021.
 
-## Price
-Gold is usually quoted by the ounce in U.S. dollars.
+## Secundary objective
+1. Analyzing the characteristics of the time series; 
+2. Data visualization of the data set - time series plot and boxplot;
+3. Feature engineering to create explanatory variables. 
 
-## Source
-Nasdaq - https://www.nasdaq.com/market-activity/commodities/gc:cmx
+## Period
+The time range of the data set is defined between 2020 and 2021, i.e., during the beginning of the COVID period. 
+
+## Target 
+The gold price for the next day.
+
+## Accuracy metric
+MAD
 
 # Notes:
 
-1. **Approach**: Machine learning;
-2. **Target**: The gold price for the next day;
-3. **Prediction period**: December, 2021;
-4. **Accuracy metric**: MAPE.
+1. Gold is usually quoted by the ounce in U.S. dollars;
+2. This project will be developed via **tidymodels** and **modeltime**, two R packages;
+3. **Source**: https://www.nasdaq.com/market-activity/commodities/gc:cmx
