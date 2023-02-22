@@ -1,4 +1,4 @@
-#This step represents an overview of how the data is set up and the application of EDA (exploratory data analysis) to see the main characteristics of the data set.
+#This step aims to check and organize the data set for the exploratory data analysis (EDA). 
 
 #Libraries
 library(tidyverse) #collection of data science packages
@@ -29,10 +29,12 @@ df <- df |> select(Date, Close.Last) |>
 #View
 df |> view() #Date is defined as YYYY-MM-DD
 
-#Step 3 - Summary statistics
+#Step 3 - Set up the time frame - dates between 2020 and 2021
 
-#Descriptive statistics
-df |> skim() #Note - period is defined between 2018-02-12 and 2023-02-10. The data set must include only dates related to 2020 and 2021 - two years.
+## First date
+min(df$period) #2018-02-12
+## Last date
+max(df$period) #2023-02-10
 
 ##Filter between 2020 and 2021
 df_final <- df |> filter(between(period, as.Date('2020-01-01'), as.Date('2021-12-31')))
@@ -40,7 +42,7 @@ df_final <- df |> filter(between(period, as.Date('2020-01-01'), as.Date('2021-12
 #View
 df_final |> view()
 
-#Descriptive statistics
+#Step 4 - Descriptive statistics
 df_final |> skim()
 
 #Total number of values: 505 observations 
@@ -50,18 +52,18 @@ df_final |> skim()
 #Median - 1794
 
 ##Statistical dispersion:
-#Date of the minimal price
+#Date of the minimal price (Minimal price - 1478)
 df_final |> slice_min(price) |> select(period) #2020-03-18
-#Date of the maximum price
+#Date of the maximum price (Maximum price - 2069)
 df_final |> slice_max(price) |> select(period) #2020-08-06
 #Range - 591
-2069 - 1478 #Minimal price = 1478 and Maximum price = 2069
+2069 - 1478
 #Standard deviation - 107
 #Coefficient of variation - 6%
 round(100 * (107/1789),0)
 
 #Comment: 
-##In broad words, the data set does not present a high level of variability during 2020 and 2021. This fact ratifies by the coefficient of variation (below 10%), as well as mean and median are close. The range of values does not show outlier observations. As a result, it is not possible to see a trend.
+##In broad words, the data set does not present a high level of variability during 2020 and 2021. This fact ratifies by the coefficient of variation (below 10%), as well as mean and median are close. 
 
-#Step 4 - Save the data frame
+#Step 5 - Save the data frame
 write.csv(df_final, "df_clean.csv", row.names = FALSE)
