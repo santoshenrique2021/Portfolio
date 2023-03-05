@@ -62,8 +62,5 @@ df_final |> slice_max(price) |> select(period) #2020-08-06
 #Coefficient of variation - 6%
 round(100 * (107/1789),0)
 
-#Comment: 
-##In broad words, the data set does not present a high level of variability during 2020 and 2021. This fact ratifies by the coefficient of variation (below 10%), as well as mean and median are close. 
-
 #Step 5 - Save the data frame
 write.csv(df_final, "df_clean.csv", row.names = FALSE)

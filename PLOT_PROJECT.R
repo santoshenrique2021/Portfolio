@@ -1,19 +1,21 @@
-#This steps presents the time series plot and the boxplot for the data set.
+#Data visualization
 
 #Libraries
 library(tidyverse)
 library(plotly)
 library(ggthemes)
+library(forecast)
 
 #Step 1 - Load the CSV file
 df<- as_tibble(read.csv("df_clean.csv")) 
 ##View and data type
 df 
 
-
 #Step 2 - Casting 
-#Type Casting - Set Date as a date-time variable
+##Type Casting - Set Date as a date-time variable
 df<- df |> mutate(period = as.Date(period)) 
+##Check
+df |> str()
 
 #Step 3 - Boxplot
 ggplot(df, aes(x = '' , y = price)) + 
@@ -25,6 +27,9 @@ ggplot(df, aes(x = '' , y = price)) +
         plot.title = element_text(face = "bold", size = 12),
         axis.title.y =   element_text(face = "bold"))+
   labs(title = 'Boxplot of the gold price') 
+
+##Save the plot to a pdf format
+ggsave('boxplot.pdf')
 
 ##Dynamic plot
 p = ggplot(df, aes(x = '' , y = price)) + 
@@ -39,13 +44,10 @@ p = ggplot(df, aes(x = '' , y = price)) +
 
 ggplotly(p)
 
-##Save the plot to a pdf format
-ggsave('boxplot.pdf', plot = p)
-
 ##Unusual observations
 boxplot.stats(df$price)$out
 #2069.4 - 1484.0 - 1479.3 - 1477.9 - 1524.9 - 1486.5 - 1516.7 - 1528.1 (8 observations)
-#Note - These observations are not far from the boxplot limits.
+
 
 #Step 4 - Time series plot
 ggplot()+
@@ -55,6 +57,9 @@ ggplot()+
   geom_line(data = df, aes(x = period, y = price), color = "darkblue", linewidth =0.85)+
   theme_stata()+  
   theme(text = element_text(size=11), plot.title = element_text(face = "bold", size = 12))
+
+##Save the plot to a pdf format
+ggsave('timeseriesplot.pdf')
 
 ##Dynamic plot
 p2 = ggplot()+
@@ -67,7 +72,24 @@ p2 = ggplot()+
 
 ggplotly(p2)
 
-##Save the plot to a pdf format
-ggsave('timeseriesplot.pdf', plot = p2)
+#Step 5 - Correlogram - Autocorrelation Function (ACF)
+df |> select(price) |>  ggAcf() +
+  theme_stata()+  
+  labs(title = "Correlogram for the gold price") +
+  theme(text = element_text(size=11), plot.title = element_text(face = "bold", size = 12))
 
-#Note - The gold price showed a positive trend between January (2020) and August (2020). However, it is relevant to mention the short-term trajectory in March. Between 3 and 16, the gold price decreased, achieving a minimal value - the beginning of the COVID period. The price range has been between 1700 and 1900 since August (2020). Finally, it was possible to see short-term trends.
+#Save the ACF plot
+ggsave("correlogram.pdf")
+
+##Dynamic plot
+p3 = df |> select(price) |>  ggAcf() +
+  theme_stata()+  
+  labs(title = "Correlogram for the gold price") +
+  theme(text = element_text(size=11), plot.title = element_text(face = "bold", size = 12))
+
+ggplotly(p3)
+
+
+
+
+

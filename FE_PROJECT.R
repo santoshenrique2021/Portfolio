@@ -1,4 +1,4 @@
-#This step represents the feature engineering process. The focus is on creating relevant features for the modeling.
+#Feature engineering process. 
 
 #Libraries
 library(tidyverse)
@@ -15,41 +15,49 @@ df
 ##Type Casting - Set Date as a date-time variable
 df<- df |> mutate(period = as.Date(period)) 
 
-#Step 3 - Create features
-##Transform a time series into a supervised learning problem and create the features.
+#Step 3 - Autocorrelation Function (ACF) 
+##ACF values
+acf(df$price, plot = FALSE)
+
+#Step 4 - Modeling data frame
+##Set up the data frame used for the modeling - Transform a time series into a supervised learning problem.
+##Create the target.
+##Create features - ACF values above 0.75.
+##Create features - moving average. 
+##Create features - moving median. 
 
 df_fe <- df |> 
-  mutate(target =   lag(price,  n=1),
-         price_p1 = lead(price, n=1),
-         price_p2 = lead(price, n=2),
-         price_p3 = lead(price, n=3),
-         price_p4 = lead(price, n=4),
-         price_p5 = lead(price, n=5),
-         dif_p1 = price - price_p1,
-         dif_p2 = price - price_p2,
-         dif_p3 = price - price_p3,
-         dif_p4 = price - price_p4,
-         dif_p5 = price - price_p5,
-         mean_5 = roll_mean(price, n=5, fill = NA, align = "left"),
-         median_5 = roll_median(price, n=5, fill = NA, align = "left"),
-         sd_5 = roll_sd(price, n=5, fill = NA, align = "left"),
-         max_5 = roll_max(price, n=5, fill = NA, align = "left"),
-         min_5 = roll_min(price, n=5, fill = NA, align = "left"),
+  mutate(target =   price,
+         price_p1 = lead(target, n=1),
+         price_p2 = lead(target, n=2),
+         price_p3 = lead(target, n=3),
+         price_p4 = lead(target, n=4),
+         price_p5 = lead(target, n=5),
+         price_p6 = lead(target, n=6),
+         price_p7 = lead(target, n=7),
+         price_p8 = lead(target, n=8),
+         price_p9 = lead(target, n=9),
+         price_p10 = lead(target, n=10),
+         price_p11 = lead(target, n=11),
+         price_p12 = lead(target, n=12),
+         price_p13 = lead(target, n=13),
+         mean_3 = roll_mean(price_p1, n=3, fill = NA, align = "left"),
+         mean_5 = roll_mean(price_p1, n=5, fill = NA, align = "left"),
+         mean_10 = roll_mean(price_p1, n=10, fill = NA, align = "left"),
+         mean_15 = roll_mean(price_p1, n=15, fill = NA, align = "left"),
+         median_5 = roll_median(price_p1, n=5, fill = NA, align = "left"),
          day = as.factor(wday(period)), 
          month = format(period, "%m")
          )
 
-##Visualization
-df_fe |> view()
+##Remove the price column
+df_fe <- df_fe |> select(-price)
 
-#Step 4 - Remove NA Lines
-df_fe_v2 <- na.omit(df_fe)
-
-##Visualization
-df_fe_v2 |> view()
+##Remove NA Lines
+df_fe <- na.omit(df_fe)
 
 #Step 5 - Correlation analysis -target vs numerical variables 
-correlation_target_features <- df_fe_v2 %>% 
+correlation_target_features <- df_fe %>% 
   select(!c(period, day, month)) %>% 
   correlate(target = target)
 
@@ -58,18 +66,8 @@ correlation_target_features %>% View()
 ##Correlation Plot
 correlation_target_features %>% plot_correlation_funnel(interactive = TRUE)
 
-#Note - These variables present low degree of correlation: dif_p5, dif_p4, dif_p3, dif_p2, dif_p1, and sd_5.
+#Step 6 - Final visualization
+df_fe |> view()
 
-#Step 6 - Final data set - it includes the relevant features and the target
-df_fe_v2 |> names()
-
-##Select the relevant variables
-df_final<- df_fe_v2 |> select(target, period, day, month, price,
-                              price_p1, price_p2, price_p3,
-                              price_p4, price_p5, mean_5, 
-                              median_5, max_5, min_5)
-##View
-df_final |> view()
-
-#Step 6 - Save the data frame
-write.csv(df_final, "df_model.csv", row.names = FALSE)
+#Step 7 - Save the data frame
+write.csv(df_fe, "df_model.csv", row.names = FALSE)
