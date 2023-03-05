@@ -1,21 +1,32 @@
-# The gold price prediction via random forest regression
+# Project
+The gold price prediction via random forest regression.
+
+# Target 
+The gold price for the period 't'.
+
+# Period
+The time range is defined between 2020 and 2021. 
+
+## Training period
+January 2020 - November 2021.
+
+## Testing period
+December 2021.
+
+# Objectives
 
 ## Primary objective
-This project presents a random forest regression applied to a time series problem. The model predicts the gold price - a daily time series quoted in Nasdaq - in Decemeber 2021.
+This project presents a random forest regression applied to a time series problem. The model predicts the gold price - a daily time series quoted in Nasdaq - for December 2021. Under this process, some variables are created (feature engineering) to help the prediction.
 
 ## Secundary objective
-1. Analyzing the characteristics of the time series; 
-2. Data visualization of the data set - time series plot and boxplot;
-3. Feature engineering to create explanatory variables. 
+1. Analyzing the characteristics of the time series during 2020 and 2021; 
+2. Data visualization - time series plot and boxplot;
+3. Simulate a production environment for December 2021;
+4. Feature engineering to create explanatory variables. 
 
-## Period
-The time range of the data set is defined between 2020 and 2021, i.e., during the beginning of the COVID period. 
+# Accuracy metric
+MAPE - Mean absolute percentage error.
 
-## Target 
-The gold price for the next day.
-
-## Accuracy metric
-MAD
 
 # Notes:
 
