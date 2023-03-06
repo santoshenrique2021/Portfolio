@@ -178,8 +178,8 @@ write.csv(df_test_pred, "df_predict.csv", row.names = FALSE)
 df_last_fit_model<-df_fit$.workflow[[1]]$fit$fit
 vip(df_last_fit_model)
 
-#Step 14 - Save the model considering the train data 
-df_fit<- df_wf %>% fit(df_train)
+#Step 14 - Save the model considering all data set
+df_fit<- df_wf %>% fit(df)
 
 #Step 15 - Save a RDS file
 saveRDS(df_fit, file = "ts_rfmodel.rds")
